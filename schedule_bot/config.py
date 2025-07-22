@@ -2,7 +2,7 @@ import os
 
 
 class Config:
-    __sentinel = None
+    __sentinel: "Config | None" = None
 
     def __new__(cls, *args, **kwargs):
         if cls.__sentinel:
