@@ -37,9 +37,26 @@ schedule = plugin.include_slash_group("schedule", "Schedule management commands"
 @schedule.include
 @arc.slash_subcommand("configure")
 async def configure(ctx: arc.GatewayContext) -> None:
-    await ctx.respond(
-        "This command is not implemented yet.", flags=hikari.MessageFlag.EPHEMERAL
-    )
+    components = [
+        hikari.impl.ContainerComponentBuilder(
+            accent_color=hikari.Color.from_hex_code("FF0000"),
+            components=[
+                hikari.impl.TextDisplayComponentBuilder(
+                    content="Time to schedule some shiet",
+                ),
+                hikari.impl.MessageActionRowBuilder(
+                    components=[
+                        hikari.impl.InteractiveButtonBuilder(
+                            label="Cool Beans",
+                            custom_id="cool_beans",
+                            style=hikari.ButtonStyle.PRIMARY,
+                        )
+                    ]
+                ),
+            ],
+        )
+    ]
+    await ctx.respond(components=components, flags=hikari.MessageFlag.EPHEMERAL)
 
 
 @arc.loader
