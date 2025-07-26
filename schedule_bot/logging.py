@@ -19,7 +19,7 @@ class LogHandler(logging.StreamHandler):
         msg = super().format(record)
 
         if color := LOG_COLORS.get(record.levelno):
-            msg = f"{color}{msg}{RESET}"
+            msg = f"{color}{record.levelname[0].upper()} {msg}{RESET}"
 
         return msg
 
@@ -27,7 +27,7 @@ class LogHandler(logging.StreamHandler):
 def configure_logger():
     logging.basicConfig(
         level=Config().LOG_LEVEL,
-        format=f"[%(asctime)s] %(levelname)s:\t%(message)s",
+        format=f"[%(asctime)s]  %(message)s",
         datefmt="%Y/%m/%d %H:%M:%S",
         handlers=[LogHandler()],
     )
