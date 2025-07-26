@@ -1,3 +1,7 @@
+import logging
+import arc
+import hikari
+
 """
 Features:
 - Command 1: /schedule configure (accessible to admins)
@@ -24,3 +28,27 @@ Features:
     - (maybe) 24 hours after the last person votes, end the poll early
     - (maybe) remind players to vote
 """
+
+plugin = arc.GatewayPlugin("schedule")
+
+schedule = plugin.include_slash_group("schedule", "Schedule management commands")
+
+
+@schedule.include
+@arc.slash_subcommand("configure")
+async def configure(ctx: arc.GatewayContext) -> None:
+    await ctx.respond(
+        "This command is not implemented yet.", flags=hikari.MessageFlag.EPHEMERAL
+    )
+
+
+@arc.loader
+def loader(client: arc.GatewayClient) -> None:
+    client.add_plugin(plugin)
+    logging.info("Schedule plugin loaded")
+
+
+@arc.unloader
+def unloader(client: arc.GatewayClient) -> None:
+    client.remove_plugin(plugin)
+    logging.info("Schedule plugin unloaded")
